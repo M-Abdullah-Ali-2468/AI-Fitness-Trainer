@@ -1,35 +1,62 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route } from "react-router-dom";
+import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
+
+// Layout and Pages
+import Layout from "./components/Layout/Layout";// Jis mein Navbar, Footer aur <Outlet /> hoga
+import SignInPage from "./app/authentication/SignInPage";
+import SignUpPage from "./app/authentication/SignUpPage";
+import Home from "./app/Home/Home";
+import GenerateProgram from "./app/GenerateProgram/GenerateProgram";
+import Profile from "./app/Profile/Profile";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Routes>
+
+      {/* Ye sab pages Layout ke andar honge jisme Navbar/Footer hota hai */}
+      <Route path="/" element={<Layout />}>
+
+        {/* Home page sirf signed-in user k liye */}
+        <Route index element={
+          <SignedIn>
+            <Home />
+          </SignedIn>
+        }/>
+
+        {/* /home bhi wahi Home.jsx kholega */}
+        <Route path="home" element={
+          <SignedIn>
+            <Home />
+          </SignedIn>
+        }/>
+
+        {/* Program Generator page (signed-in users only) */}
+        <Route path="generate-program" element={
+          <SignedIn>
+            <GenerateProgram />
+          </SignedIn>
+        }/>
+
+        {/* Profile route ko protect karna hai */}
+        <Route path="profile" element={
+          <>
+            <SignedIn>
+              <Profile />
+            </SignedIn>
+            <SignedOut>
+              <RedirectToSignIn />
+            </SignedOut>
+          </>
+        }/>
+
+      </Route>
+
+      {/* Ye auth wale pages hain, layout ke bahar (pure centered page) */}
+      <Route path="/sign-in" element={<SignInPage />} />
+      <Route path="/sign-up" element={<SignUpPage />} />
+
+    </Routes>
+  );
 }
 
-export default App
+export default App;
