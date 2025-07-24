@@ -1,0 +1,93 @@
+/* index.css for Dark Pulse AI Theme */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;500&display=swap');
+
+:root {
+  --primary-color: #00fff7;       /* Neon Cyan */
+  --accent-color: #8a2be2;        /* Purple */
+  --background-color: #0f0f0f;    /* Dark Matte */
+  --text-color: #f1f1f1;
+  --card-color: #1a1a1a;
+  --border-glow: 0 0 10px var(--primary-color);
+  --transition-speed: 0.3s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+/* Text Selection */
+::selection {
+  background: var(--primary-color);
+  color: black;
+}
+
+/* Links */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color var(--transition-speed);
+}
+a:hover {
+  color: var(--accent-color);
+}
+
+/* Utility Classes */
+.glow-text {
+  text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color);
+}
+
+.neon-border {
+  border: 1px solid var(--primary-color);
+  box-shadow: var(--border-glow);
+  transition: all var(--transition-speed);
+}
+
+.card {
+  background-color: var(--card-color);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0,255,255,0.1);
+}
+
+/* Button Style */
+.glow-button {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+}
+.glow-button:hover {
+  background-color: var(--primary-color);
+  color: black;
+  box-shadow: 0 0 15px var(--primary-color);
+}
+
+

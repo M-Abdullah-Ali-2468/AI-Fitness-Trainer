@@ -1,0 +1,140 @@
+:root {
+  --primary-color: #00ffff;
+  --text-color: #ffffff;
+  --card-color: #1a1a1a;
+}
+
+/* ========== Footer Base ========== */
+.footer {
+  background-color: var(--card-color);
+  color: var(--text-color);
+  padding: 24px 16px;
+  font-family: 'Orbitron', sans-serif;
+  border-top: 1px solid var(--primary-color);
+  font-size: 0.9rem;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+/* ========== Brand Section ========== */
+.footer-brand {
+  flex: 1 1 220px;
+}
+
+.footer-logo-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.footer-logo-img {
+  height: 32px;
+  width: auto;
+  filter: drop-shadow(0 0 3px var(--primary-color));
+}
+
+.footer-logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  text-shadow: 0 0 6px var(--primary-color);
+}
+
+.footer-brand p {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin-top: 6px;
+  color: #ccc;
+}
+
+/* ========== Links Section ========== */
+.footer-links {
+  flex: 1 1 140px;
+}
+
+.footer-links h4 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: var(--primary-color);
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 6px;
+}
+
+.footer-links a {
+  color: #bbb;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--primary-color);
+}
+
+/* ========== Social Section ========== */
+.footer-social {
+  flex: 1 1 140px;
+}
+
+.footer-social h4 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: var(--primary-color);
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.social-icons a {
+  color: #bbb;
+  font-size: 1rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: var(--primary-color);
+  transform: scale(1.05);
+}
+
+/* ========== Bottom Section ========== */
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.8rem;
+  color: #aaa;
+  border-top: 1px solid rgba(0, 255, 255, 0.1);
+  padding-top: 12px;
+}
+
+/* ========== Responsive ========== */
+@media screen and (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-logo-box {
+    justify-content: center;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+}

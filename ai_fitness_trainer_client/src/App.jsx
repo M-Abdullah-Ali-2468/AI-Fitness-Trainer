@@ -8,7 +8,7 @@ import SignUpPage from "./app/authentication/SignUpPage";
 import Home from "./app/Home/Home";
 import GenerateProgram from "./app/GenerateProgram/GenerateProgram";
 import Profile from "./app/Profile/Profile";
-
+import Onboarding from "./app/Onboarding/Onboarding";
 function App() {
   return (
     <Routes>
@@ -27,6 +27,14 @@ function App() {
         <Route path="home" element={
           <SignedIn>
             <Home />
+          </SignedIn>
+        }/>
+
+         
+          {/* /home bhi wahi Home.jsx kholega */}
+        <Route path="onboarding" element={
+          <SignedIn>
+            <Onboarding />
           </SignedIn>
         }/>
 

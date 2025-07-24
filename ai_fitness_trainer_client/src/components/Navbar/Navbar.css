@@ -1,0 +1,134 @@
+/* Navbar.css — Dark Pulse AI Theme */
+
+.navbar {
+  position: fixed;
+  top: 20px;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  margin: 0 auto;
+  width: 95%;
+  max-width: 1300px;
+
+  background-color: var(--card-color);
+  padding: 16px 32px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+  border: 1px solid var(--primary-color);
+  height: 70px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoImg {
+  height: 40px;
+  width: auto;
+  filter: drop-shadow(0 0 4px var(--primary-color));
+}
+
+.logoText {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  font-weight: bold;
+  text-shadow: 0 0 8px var(--primary-color);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* NavLink Styling */
+.nav-links a {
+  color: var(--text-color);
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover{
+  color: var(--primary-color);
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* UserButton glow effect */
+.cl-userButtonBox {
+  margin-left: 15px;
+  box-shadow: 0 0 8px var(--primary-color);
+  border-radius: 50%;
+  transition: box-shadow 0.3s;
+}
+.cl-userButtonBox:hover {
+  box-shadow: 0 0 15px var(--primary-color);
+}
+
+
+.toggleMenu{
+    display: None;
+    z-index: 1001;
+}
+.toggleMenu:hover{
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+
+
+
+@media screen and (max-width:800px){
+    .nav-links{
+        display: None;
+    }
+
+    .toggleMenu{
+        display: flex;
+    }
+
+    .nav-links .active{
+        display: flex;
+        
+    }
+
+    .nav-links.active {
+    display: flex;
+    flex-direction:  column;
+    position: absolute;
+    background-color:black;
+    top: -0.5%;
+   width: 100%;
+   left: 0%;   
+   padding: 15px;
+   border-radius: 10px;
+   border: 1px solid var(--primary-color);
+}
+
+.nav-links.active a{
+    text-align: center;
+}
+
+}
+
