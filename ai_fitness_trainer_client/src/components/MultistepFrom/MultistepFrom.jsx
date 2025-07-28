@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import botImg from '../../assets/botImg.png';
 import './MultistepFrom.css';
 
-const steps = ["Basic Info", "Physical Stats", "Goals", "Health", "Lifestyle"];
+const steps = ["Basic Info", "Body Measurements", "Lifestyle & Activity", "Health Conditions", "Recovery & Diet"];
 
 export default function MultiStepForm() {
   const [step, setStep] = useState(1);
@@ -11,12 +11,17 @@ export default function MultiStepForm() {
     gender: "",
     height: "",
     weight: "",
-    goal: "",
     activity: "",
+    occupation: "",
+    smoking: "",
+    alcohol: "",
+    waterIntake: "",
     medical: "",
     allergies: "",
+    injuries: "",
     sleep: "",
     diet: "",
+    mealFrequency: "",
     workoutTime: "",
   });
 
@@ -30,6 +35,13 @@ export default function MultiStepForm() {
 
   const prev = () => setStep((prev) => Math.max(prev - 1, 1));
 
+
+  const handleSubmit = () => {
+    localStorage.setItem("userProfileData", JSON.stringify(formData));
+    alert("Form submitted! Data saved locally.");
+    console.log("Submitted data:", formData);
+  };
+
   const isStepValid = () => {
     switch (step) {
       case 1:
@@ -37,9 +49,9 @@ export default function MultiStepForm() {
       case 2:
         return formData.height !== "" && formData.weight !== "";
       case 3:
-        return formData.goal !== "" && formData.activity !== "";
+        return formData.activity !== "" && formData.occupation !== "";
       default:
-        return true; // Steps 4 & 5 are optional
+        return true;
     }
   };
 
@@ -63,48 +75,69 @@ export default function MultiStepForm() {
         return (
           <div className="form-step">
             <label>Height (cm)</label>
-            <input type="number" name="height" placeholder="Height (cm)" onChange={handleChange} value={formData.height} />
+            <input type="number" name="height" placeholder="Height in cm" onChange={handleChange} value={formData.height} />
             <label>Weight (kg)</label>
-            <input type="number" name="weight" placeholder="Weight (kg)" onChange={handleChange} value={formData.weight} />
+            <input type="number" name="weight" placeholder="Weight in kg" onChange={handleChange} value={formData.weight} />
           </div>
         );
       case 3:
         return (
           <div className="form-step">
-            <label>Goal</label>
-            <select name="goal" onChange={handleChange} value={formData.goal}>
-              <option value="">Select Goal</option>
-              <option value="Lose Weight">Lose Weight</option>
-              <option value="Build Muscle">Build Muscle</option>
-              <option value="Stay Fit">Stay Fit</option>
-            </select>
             <label>Activity Level</label>
             <select name="activity" onChange={handleChange} value={formData.activity}>
-              <option value="">Activity Level</option>
-              <option value="Low">Low</option>
-              <option value="Moderate">Moderate</option>
-              <option value="High">High</option>
+              <option value="">Select Activity Level</option>
+              <option value="Sedentary">Sedentary (Little to no exercise)</option>
+              <option value="Lightly Active">Lightly Active (1–2 days/week)</option>
+              <option value="Moderately Active">Moderately Active (3–5 days/week)</option>
+              <option value="Very Active">Very Active (6–7 days/week)</option>
             </select>
+            <label>Occupation Type</label>
+            <select name="occupation" onChange={handleChange} value={formData.occupation}>
+              <option value="">Select Occupation Type</option>
+              <option value="Desk Job">Desk Job</option>
+              <option value="Field Work">Field Work</option>
+              <option value="Manual Labor">Manual Labor</option>
+            </select>
+            <label>Do you smoke?</label>
+            <select name="smoking" onChange={handleChange} value={formData.smoking}>
+              <option value="">Select</option>
+              <option value="No">No</option>
+              <option value="Occasionally">Occasionally</option>
+              <option value="Regularly">Regularly</option>
+            </select>
+            <label>Do you consume alcohol?</label>
+            <select name="alcohol" onChange={handleChange} value={formData.alcohol}>
+              <option value="">Select</option>
+              <option value="No">No</option>
+              <option value="Occasionally">Occasionally</option>
+              <option value="Regularly">Regularly</option>
+            </select>
+            <label>Water Intake (liters/day)</label>
+            <input type="number" name="waterIntake" placeholder="e.g. 2.5" onChange={handleChange} value={formData.waterIntake} />
           </div>
         );
       case 4:
         return (
           <div className="form-step">
             <label>Medical Conditions (Optional)</label>
-            <input type="text" name="medical" placeholder="Medical Conditions (if any)" onChange={handleChange} value={formData.medical} />
+            <input type="text" name="medical" placeholder="e.g. Diabetes, Asthma" onChange={handleChange} value={formData.medical} />
             <label>Allergies (Optional)</label>
-            <input type="text" name="allergies" placeholder="Allergies" onChange={handleChange} value={formData.allergies} />
+            <input type="text" name="allergies" placeholder="e.g. Nuts, Pollen" onChange={handleChange} value={formData.allergies} />
+            <label>Any Injuries (past or present)</label>
+            <input type="text" name="injuries" placeholder="e.g. Knee pain, lower back issue" onChange={handleChange} value={formData.injuries} />
           </div>
         );
       case 5:
         return (
           <div className="form-step">
-            <label>Average Sleep Hours (Optional)</label>
-            <input type="text" name="sleep" placeholder="Sleep Hours" onChange={handleChange} value={formData.sleep} />
-            <label>Diet Preference (Optional)</label>
-            <input type="text" name="diet" placeholder="Diet (Veg/Non-Veg)" onChange={handleChange} value={formData.diet} />
-            <label>Preferred Workout Time (Optional)</label>
-            <input type="text" name="workoutTime" placeholder="Workout Time" onChange={handleChange} value={formData.workoutTime} />
+            <label>Average Sleep Hours</label>
+            <input type="text" name="sleep" placeholder="e.g. 7" onChange={handleChange} value={formData.sleep} />
+            <label>Diet Preference</label>
+            <input type="text" name="diet" placeholder="e.g. Veg / Non-Veg / Keto" onChange={handleChange} value={formData.diet} />
+            <label>Meal Frequency (meals/day)</label>
+            <input type="text" name="mealFrequency" placeholder="e.g. 3" onChange={handleChange} value={formData.mealFrequency} />
+            <label>Preferred Workout Time</label>
+            <input type="text" name="workoutTime" placeholder="e.g. Morning / Evening" onChange={handleChange} value={formData.workoutTime} />
           </div>
         );
       default:
@@ -119,11 +152,11 @@ export default function MultiStepForm() {
         <div className="bot-message">
           <img src={botImg} alt="Bot" className="bot-img" />
           <div className="message-box">
-            {step === 1 && `Hi ! Let's get started with your basic info.`}
-            {step === 2 && "Great! Now enter your physical stats."}
-            {step === 3 && "Awesome! What are your fitness goals?"}
-            {step === 4 && "Do you have any health conditions or allergies?"}
-            {step === 5 && "Almost there! Tell me about your lifestyle."}
+            {step === 1 && `Welcome. Please enter your basic demographic information.`}
+            {step === 2 && "Now provide your physical measurements."}
+            {step === 3 && "Let’s understand your lifestyle and daily habits."}
+            {step === 4 && "Kindly mention any health concerns or past injuries."}
+            {step === 5 && "Lastly, tell us about your recovery and dietary habits."}
           </div>
         </div>
       </div>
@@ -149,7 +182,7 @@ export default function MultiStepForm() {
           {step < steps.length ? (
             <button onClick={next} disabled={!isStepValid()}>Next</button>
           ) : (
-            <button onClick={() => alert("Form submitted!")}>Submit</button>
+            <button onClick={handleSubmit}>Submit</button>
           )}
         </div>
       </div>
