@@ -31,7 +31,7 @@ function App() {
         }/>
 
          
-          {/* /home bhi wahi Home.jsx kholega */}
+
         <Route path="onboarding" element={
           <SignedIn>
             <Onboarding />

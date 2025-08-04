@@ -7,11 +7,12 @@ import {
   StretchHorizontal,
   Settings
 } from "lucide-react";
-import './GenerateProgram.css'; 
+import './GenerateProgram.css';
 
 function GenerateProgram() {
   const [selectedGoal, setGoal] = useState(null);
   const [prompt, setPrompt] = useState("");
+  const [duration, setDuration] = useState("");
 
   const goalList = [
     { id: 1, label: "Build Muscle", icon: <Dumbbell size={20} /> },
@@ -22,11 +23,7 @@ function GenerateProgram() {
   ];
 
   const handleGoalSet = (id) => {
-    if (selectedGoal === id) {
-      setGoal(null);
-    } else {
-      setGoal(id);
-    }
+    setGoal(prev => (prev === id ? null : id));
   };
 
   const handleSubmit = () => {
@@ -34,16 +31,27 @@ function GenerateProgram() {
       alert("⚠️ Please select a goal first!");
       return;
     }
+
+    const durationInt = parseInt(duration);
+    if (!duration.trim() || isNaN(durationInt) || durationInt < 1 || durationInt > 4) {
+      alert("⚠️ Please enter a valid plan duration between 1 to 4 weeks!");
+      return;
+    }
+
     if (!prompt.trim()) {
       alert("⚠️ Please enter a prompt!");
       return;
     }
 
-    // 🧠 Replace this with your AI call logic
-    console.log("Generating Program for:", {
-      goal: goalList.find(g => g.id === selectedGoal).label,
+    const selectedGoalLabel = goalList.find(g => g.id === selectedGoal)?.label;
+
+    console.log("📦 Generating Program:", {
+      goal: selectedGoalLabel,
+      duration: durationInt,
       prompt
     });
+
+    // 🔁 Place API/Gemini call here
   };
 
   return (
@@ -59,21 +67,31 @@ function GenerateProgram() {
         <div className="goalHeading">
           <h2>Select Goal</h2>
         </div>
-       <div className="goalButtons">
-         {goalList.map((goal) => (
-          <button
-  className={`goal ${selectedGoal === goal.id ? 'active' : ''}`}
-  id={goal.id}
-  onClick={() => handleGoalSet(goal.id)}
->
-  {goal.icon}
-  {goal.label}
-</button>
-        ))}
-       </div>
+        <div className="goalButtons">
+          {goalList.map((goal) => (
+            <button
+              key={goal.id}
+              className={`goal ${selectedGoal === goal.id ? 'active' : ''}`}
+              onClick={() => handleGoalSet(goal.id)}
+            >
+              {goal.icon}
+              {goal.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="promptArea">
+        <input
+          type="number"
+          min="1"
+          max="4"
+          className="durationInput"
+          placeholder="Plan duration in weeks (1–4)"
+          value={duration}
+          onChange={(e) => setDuration(e.target.value)}
+        />
+
         <textarea
           name="promptArea"
           id="promptInput"
@@ -81,6 +99,7 @@ function GenerateProgram() {
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
         />
+
         <button className="generateBtn" onClick={handleSubmit}>
           <Settings size={18} />
           <span>Generate Program</span>

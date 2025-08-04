@@ -23,12 +23,13 @@ create table if not exists onboarding_data (
   medical text,
   allergies text,
   injuries text,
-  sleep text,
-  diet text,
+  sleep text not null,
+  diet text not null,
   meal_frequency text,
   workout_time text,
-  created_at timestamp not null default now()  -- Store when this form was submitted
+  created_at timestamp not null default now()
 );
+
 
 -- 💪 AI-Generated Fitness Plans
 create table if not exists generated_plans (

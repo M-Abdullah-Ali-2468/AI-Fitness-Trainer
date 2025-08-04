@@ -1,32 +1,34 @@
 import express from "express";
-import bodyParser from "body-parser";
-import { Webhook } from "svix";
 import dotenv from "dotenv";
-import { createUser, updateUser, deleteUser } from "./supabase/functions/user_functions.js";
+import cors from "cors";
+import { Webhook } from "svix";
 
+import { createUser, deleteUser, updateUser } from "./supabase/functions/user_functions.js";
+import { insertFormData } from "./supabase/functions/onboarding_functions.js";
+
+// 🔐 Load environment variables
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Clerk webhook secret
-const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
+// ✅ 1. Clerk webhook route — must come BEFORE express.json()
+app.post("/api/clerk-webhook", express.raw({ type: "application/json" }), async (req, res) => {
+  const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
 
-if (!WEBHOOK_SECRET) {
-  console.error("❌ Missing Clerk webhook secret in environment variables.");
-  process.exit(1); // Stop the server if secret is missing
-}
+  if (!WEBHOOK_SECRET) {
+    console.error("❌ Missing Clerk webhook secret in .env");
+    return res.status(500).send("Webhook secret missing");
+  }
 
-// Required middleware to parse raw body for Clerk's Svix
-app.use("/api/clerk-webhook", bodyParser.raw({ type: "application/json" }));
-
-app.post("/api/clerk-webhook", async (req, res) => {
   const svix = new Webhook(WEBHOOK_SECRET);
 
-  let evt;
+  const payload = req.body;
+  const headers = req.headers;
 
+  let evt;
   try {
-    evt = svix.verify(req.body, req.headers);
+    evt = svix.verify(payload, headers);
   } catch (err) {
     console.error("❌ Webhook verification failed:", err.message);
     return res.status(400).json({ error: "Invalid webhook signature" });
@@ -34,32 +36,80 @@ app.post("/api/clerk-webhook", async (req, res) => {
 
   const { type, data } = evt;
 
-  try {
-    if (type === "user.created") {
-      const { id, first_name, last_name, email_addresses } = data;
-      const fullName = `${first_name} ${last_name}`;
-      const email = email_addresses[0]?.email_address;
-      await createUser(id, fullName, email);
-    } else if (type === "user.updated") {
-      const { id, first_name, last_name, email_addresses } = data;
-      const updatedFields = {
-        name: `${first_name} ${last_name}`,
-        email: email_addresses[0]?.email_address,
-      };
-      await updateUser(id, updatedFields);
-    } else if (type === "user.deleted") {
-      await deleteUser(data.id);
-    } else {
-      console.log("ℹ️ Unhandled event type:", type);
-    }
+  console.log(`📩 Webhook Event Type: ${type}`);
 
-    res.status(200).json({ success: true });
-  } catch (err) {
-    console.error("❌ Error handling event:", err.message);
-    res.status(500).json({ error: "Internal server error" });
+  switch (type) {
+    case "user.created":
+      console.log("✅ Clerk user.created event received:", {
+        id: data.id,
+        email: data.email_addresses?.[0]?.email_address,
+      });
+
+      try {
+        await createUser(
+          data.id,
+          `${data.first_name ?? ""} ${data.last_name ?? ""}`.trim(),
+          data.email_addresses?.[0]?.email_address
+        );
+      } catch (err) {
+        console.error("❌ Failed to create user in Supabase:", err.message);
+      }
+      break;
+
+    case "user.updated":
+      console.log("🔄 Clerk user.updated event received:", {
+        id: data.id,
+        updated_at: data.updated_at,
+      });
+
+      try {
+        const updatedFields = {
+          name: `${data.first_name ?? ""} ${data.last_name ?? ""}`.trim(),
+          email: data.email_addresses?.[0]?.email_address,
+        };
+        await updateUser(data.id, updatedFields);
+      } catch (err) {
+        console.error("❌ Failed to update user in Supabase:", err.message);
+      }
+      break;
+
+    case "user.deleted":
+      console.log("🗑️ Clerk user.deleted event received:", {
+        id: data.id,
+      });
+
+      try {
+        await deleteUser(data.id);
+      } catch (err) {
+        console.error("❌ Failed to delete user in Supabase:", err.message);
+      }
+      break;
+
+    default:
+      console.warn("⚠️ Unhandled webhook type:", type);
+      break;
+  }
+
+  res.status(200).json({ received: true });
+});
+
+// ✅ 2. General middleware
+app.use(express.json());
+app.use(cors());
+
+// ✅ 3. Route to handle onboarding form submission
+app.post("/api/form/onboarding", async (req, res) => {
+  try {
+    const formData = req.body;
+    await insertFormData(formData);
+    res.status(200).json({ success: true, message: "Form data inserted successfully" });
+  } catch (error) {
+    console.error("❌ Error inserting form data:", error.message);
+    res.status(500).json({ success: false, message: "Failed to insert form data" });
   }
 });
 
+// ✅ 4. Start server
 app.listen(port, () => {
-  console.log(`🚀 Clerk webhook listener running at http://localhost:${port}`);
+  console.log(`🚀 Server running on http://localhost:${port}`);
 });

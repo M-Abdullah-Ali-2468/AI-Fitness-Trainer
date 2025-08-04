@@ -85,6 +85,24 @@
   gap: 20px;
 }
 
+.durationInput {
+  width: 100%;
+  max-width: 300px;
+  padding: 14px 16px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 1px solid #444;
+  background-color: #1a1a1a;
+  color: white;
+  outline: none;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.durationInput:focus {
+  border-color: #00ffff;
+  box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+}
+
 .promptArea textarea {
   width: 100%;
   max-width: 800px;
@@ -92,12 +110,11 @@
   padding: 16px;
   border-radius: 12px;
   font-size: 1rem;
-  resize: vertical;
+  resize: none;
   border: 1px solid #444;
   background-color: #1a1a1a;
   color: white;
   transition: border 0.3s ease, box-shadow 0.3s ease;
-  resize: none;
 }
 
 .promptArea textarea:focus {
@@ -143,6 +160,10 @@
     width: 100%;
     max-width: 320px;
   }
+
+  .durationInput {
+    max-width: 320px;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -166,5 +187,10 @@
   .promptArea button {
     font-size: 1rem;
     padding: 12px 20px;
+  }
+
+  .durationInput {
+    font-size: 0.95rem;
+    padding: 12px;
   }
 }

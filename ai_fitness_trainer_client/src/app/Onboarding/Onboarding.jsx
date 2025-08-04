@@ -1,9 +1,9 @@
-import MultistepFrom from "../../components/MultistepFrom/MultistepFrom";
-
+import MultiStepForm from "../../components/MultiStepForm/MultiStepForm";
+import "../../components/MultiStepForm/MultiStepForm.css"
 function Onboarding(){
     return(
         <>
-        <MultistepFrom/>
+        <MultiStepForm/>
         </>
     )
 }

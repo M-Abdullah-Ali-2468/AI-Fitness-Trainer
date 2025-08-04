@@ -22,7 +22,6 @@ export default function Navbar() {
             <div className= {`nav-links ${clicked ? 'active':''}`}>
                 <SignedIn>
                     <NavLink to="/home">Home</NavLink>
-                    <NavLink to="/onboarding">Onboard From</NavLink>
                     <NavLink to="/generate-program">Generate Program</NavLink>
                     <NavLink to="/profile">Profile</NavLink>
                     <UserButton afterSignOutUrl="/home" />
