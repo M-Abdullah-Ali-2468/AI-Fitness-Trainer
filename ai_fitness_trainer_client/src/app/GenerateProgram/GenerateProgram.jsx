@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useUser } from '@clerk/clerk-react';
+import { useNavigate } from 'react-router-dom';
+import { useGeneratePlan } from '../../hooks/useGenerateProgram.js';
 import {
   Dumbbell,
   Flame,
@@ -7,12 +10,41 @@ import {
   StretchHorizontal,
   Settings
 } from "lucide-react";
+
+import botImg from  '../../assets/botImg.png'
 import './GenerateProgram.css';
 
+
+import useData from '../../hooks/useData.js';
+
 function GenerateProgram() {
+  const { user } = useUser();
+  const navigate = useNavigate();
+  const { data, loading, error } = useData(user?.id);
   const [selectedGoal, setGoal] = useState(null);
   const [prompt, setPrompt] = useState("");
   const [duration, setDuration] = useState("");
+  const [botMessage, setBotMessage] = useState("");
+
+  // ✅ use custom hook to generate AI plan
+  const { plan, p_loading, p_error, generate } = useGeneratePlan();
+
+  // 🔍 Debug incoming user data
+  if (error) {
+    console.log('❌ Data fetch error: ' + error);
+  } else {
+    console.log("✅ Printing user data:", data);
+  }
+
+  // 🔁 Watch generated plan
+  // 🔁 Navigate when plan is ready
+useEffect(() => {
+  if (plan) {
+    console.log("✅ AI Plan Generated:", plan);
+    navigate('/profile');
+  }
+}, [plan, navigate]);
+
 
   const goalList = [
     { id: 1, label: "Build Muscle", icon: <Dumbbell size={20} /> },
@@ -21,6 +53,16 @@ function GenerateProgram() {
     { id: 4, label: "Maintain Fitness", icon: <Activity size={20} /> },
     { id: 5, label: "Improve Flexibility", icon: <StretchHorizontal size={20} /> }
   ];
+
+  const messages = [
+  "Analyzing your fitness profile...",
+  "Creating your personalized workout...",
+  "Optimizing your health routine...",
+  "Letting the AI cook your perfect plan..."
+];
+
+
+
 
   const handleGoalSet = (id) => {
     setGoal(prev => (prev === id ? null : id));
@@ -51,8 +93,29 @@ function GenerateProgram() {
       prompt
     });
 
-    // 🔁 Place API/Gemini call here
+    setBotMessage(messages[Math.floor(Math.random()*messages.length)])
+    // ✅ Generate AI Plan
+    generate({
+  userInfo: data, // 👈 rename key
+  goal: selectedGoalLabel,
+  duration: durationInt,
+  customPrompt: prompt,
+});
+
+
   };
+if (p_loading) {
+  return (
+    <div className="loadingAnimation">
+      <div className="img">
+        <img src={botImg} alt="" className="Bot" />
+      </div>
+      <div className="message">
+        <p>{botMessage}</p>
+      </div>
+    </div>
+  );
+}
 
   return (
     <div className="generateProgram">

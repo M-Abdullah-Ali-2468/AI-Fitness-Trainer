@@ -6,6 +6,11 @@ import { Webhook } from "svix";
 import { createUser, deleteUser, updateUser } from "./supabase/functions/user_functions.js";
 import { insertFormData } from "./supabase/functions/onboarding_functions.js";
 
+// ✅ NEW: Import onboarding route
+import onboardingRoutes from "./routes/onboardingRoutes.js";
+import geminiRoutes from "./routes/geminiRoutes.js";
+
+
 // 🔐 Load environment variables
 dotenv.config();
 
@@ -109,7 +114,14 @@ app.post("/api/form/onboarding", async (req, res) => {
   }
 });
 
-// ✅ 4. Start server
+// ✅ 4. Use onboarding GET route
+app.use("/api/onboarding", onboardingRoutes);
+
+// ✅ 5. Use gemini plan generate post route
+app.use("/api/generate-plan", geminiRoutes);
+
+
+// ✅ 6. Start server
 app.listen(port, () => {
   console.log(`🚀 Server running on http://localhost:${port}`);
 });
