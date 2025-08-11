@@ -95,3 +95,41 @@ export const fetchOnboardingData = async (clerkId) => {
     return { success: false, error: err.message };
   }
 };
+
+/**
+ * Update onboarding form data in Supabase
+ * @param {string} onboardingId - ID of the onboarding record (NOT user ID)
+ * @param {object} updateData - Fields to update
+ */
+export async function updateOnboardingInDB(onboardingId, updateData) {
+  try {
+    console.log(`🔍 Updating onboarding record ID: ${onboardingId}`);
+    console.log('📝 Data to update:', updateData);
+
+    // Remove the 'id' field from updateData to avoid updating the primary key
+    const { id, ...fieldsToUpdate } = updateData;
+
+    const { data, error } = await supabase
+      .from("onboarding_data")
+      .update(fieldsToUpdate) // Only update the actual fields, not the ID
+      .eq("id", onboardingId) // Match by onboarding record ID
+      .select(); // Return the updated row
+
+    if (error) {
+      console.error("❌ Supabase update error:", error);
+      throw new Error(error.message);
+    }
+
+    if (!data || data.length === 0) {
+      console.error("❌ No records updated - onboarding ID may not exist");
+      return null;
+    }
+
+    console.log("✅ Onboarding data updated successfully:", data);
+    return data; // Updated record(s)
+    
+  } catch (err) {
+    console.error("❌ Error in updateOnboardingInDB:", err);
+    throw err;
+  }
+}
