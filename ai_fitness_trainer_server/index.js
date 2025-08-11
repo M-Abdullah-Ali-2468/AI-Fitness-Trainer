@@ -10,6 +10,8 @@ import { insertFormData } from "./supabase/functions/onboarding_functions.js";
 import onboardingRoutes from "./routes/onboardingRoutes.js";
 import geminiRoutes from "./routes/geminiRoutes.js";
 
+import generatedPlansRoutes from './routes/user_plans_routes.js';
+
 
 // 🔐 Load environment variables
 dotenv.config();
@@ -119,6 +121,9 @@ app.use("/api/onboarding", onboardingRoutes);
 
 // ✅ 5. Use gemini plan generate post route
 app.use("/api/generate-plan", geminiRoutes);
+
+
+app.use('/api/plans', generatedPlansRoutes);
 
 
 // ✅ 6. Start server

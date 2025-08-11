@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useUser } from '@clerk/clerk-react';
 import { useNavigate } from 'react-router-dom';
 import { useGeneratePlan } from '../../hooks/useGenerateProgram.js';
+import { saveGeneratedPlan } from '../../api/get_user_plan.js';  // API import
+
 import {
   Dumbbell,
   Flame,
@@ -13,7 +15,6 @@ import {
 
 import botImg from  '../../assets/botImg.png'
 import './GenerateProgram.css';
-
 
 import useData from '../../hooks/useData.js';
 
@@ -30,21 +31,42 @@ function GenerateProgram() {
   const { plan, p_loading, p_error, generate } = useGeneratePlan();
 
   // 🔍 Debug incoming user data
-  if (error) {
-    console.log('❌ Data fetch error: ' + error);
-  } else {
-    console.log("✅ Printing user data:", data);
-  }
+  useEffect(() => {
+    if (error) {
+      console.log('❌ Data fetch error: ' + error);
+    } else {
+      console.log("✅ Printing user data:", data);
+    }
+  }, [data, error]);
 
-  // 🔁 Watch generated plan
-  // 🔁 Navigate when plan is ready
-useEffect(() => {
-  if (plan) {
-    console.log("✅ AI Plan Generated:", plan);
-    navigate('/profile');
-  }
-}, [plan, navigate]);
+  // 🔁 Watch generated plan and save it
+  useEffect(() => {
+    if (plan) {
+      console.log("✅ AI Plan Generated:", plan);
 
+      const selectedGoalLabel = goalList.find(g => g.id === selectedGoal)?.label || 'Custom';
+
+      // Prepare data for saving to DB
+      const planToSave = {
+        user_id: data.user_id,
+        title: `${selectedGoalLabel} Plan`,
+        days: parseInt(duration),
+        notes: prompt,
+        content: plan,  // assume plan is JSON object or JSON-stringifiable
+        is_active: true,
+      };
+
+      saveGeneratedPlan(planToSave)
+        .then(saved => {
+          console.log('✅ Plan saved successfully:', saved);
+          navigate('/profile');
+        })
+        .catch(err => {
+          alert('Failed to save the generated plan, try again later.');
+          console.error(err);
+        });
+    }
+  }, [plan, user, duration, prompt, navigate, selectedGoal]);
 
   const goalList = [
     { id: 1, label: "Build Muscle", icon: <Dumbbell size={20} /> },
@@ -55,14 +77,11 @@ useEffect(() => {
   ];
 
   const messages = [
-  "Analyzing your fitness profile...",
-  "Creating your personalized workout...",
-  "Optimizing your health routine...",
-  "Letting the AI cook your perfect plan..."
-];
-
-
-
+    "Analyzing your fitness profile...",
+    "Creating your personalized workout...",
+    "Optimizing your health routine...",
+    "Letting the AI cook your perfect plan..."
+  ];
 
   const handleGoalSet = (id) => {
     setGoal(prev => (prev === id ? null : id));
@@ -93,29 +112,29 @@ useEffect(() => {
       prompt
     });
 
-    setBotMessage(messages[Math.floor(Math.random()*messages.length)])
+    setBotMessage(messages[Math.floor(Math.random()*messages.length)]);
+
     // ✅ Generate AI Plan
     generate({
-  userInfo: data, // 👈 rename key
-  goal: selectedGoalLabel,
-  duration: durationInt,
-  customPrompt: prompt,
-});
-
-
+      userInfo: data,
+      goal: selectedGoalLabel,
+      duration: durationInt,
+      customPrompt: prompt,
+    });
   };
-if (p_loading) {
-  return (
-    <div className="loadingAnimation">
-      <div className="img">
-        <img src={botImg} alt="" className="Bot" />
+
+  if (p_loading) {
+    return (
+      <div className="loadingAnimation">
+        <div className="img">
+          <img src={botImg} alt="Bot" className="Bot" />
+        </div>
+        <div className="message">
+          <p>{botMessage}</p>
+        </div>
       </div>
-      <div className="message">
-        <p>{botMessage}</p>
-      </div>
-    </div>
-  );
-}
+    );
+  }
 
   return (
     <div className="generateProgram">
