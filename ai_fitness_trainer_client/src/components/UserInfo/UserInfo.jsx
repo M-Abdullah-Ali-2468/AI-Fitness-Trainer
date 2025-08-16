@@ -20,6 +20,7 @@ import {
   PencilLine,
   Save,
   X,
+  CloudOff,
 } from "lucide-react";
 
 const options = {
@@ -173,7 +174,7 @@ const handleSave = async () => {
   return (
     <div className="user-info-v2-card">
       <div className="user-info-v2-intro">
-        <h1 className="user-info-v2-name">Welcome, {userName} 👋</h1>
+        <h1 className="user-info-v2-name">Welcome, {userName} !</h1>
         <p className="user-info-v2-mail">{userMail}</p>
       </div>
 

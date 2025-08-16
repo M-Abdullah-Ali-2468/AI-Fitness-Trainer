@@ -1,4 +1,4 @@
-// client/src/api/generatePlanApi.js
+// client/src/api/get_user_plan.js
 
 import axios from "axios";
 
@@ -12,6 +12,7 @@ export const generatePlan = async ({ userInfo, goal, duration, customPrompt }) =
     throw error;
   }
 };
+
 
 /**
  * Save a generated fitness plan to backend

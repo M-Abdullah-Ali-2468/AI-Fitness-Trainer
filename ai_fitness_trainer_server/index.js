@@ -12,6 +12,11 @@ import geminiRoutes from "./routes/geminiRoutes.js";
 
 import generatedPlansRoutes from './routes/user_plans_routes.js';
 
+import generatedPlansRoute from './routes/active_inactive_routes.js';
+
+import plansRoutes from "./routes/plans_api_routes.js";
+
+
 
 // 🔐 Load environment variables
 dotenv.config();
@@ -125,6 +130,9 @@ app.use("/api/generate-plan", geminiRoutes);
 
 app.use('/api/plans', generatedPlansRoutes);
 
+app.use('/api/plans', generatedPlansRoute);
+
+app.use("/api/plans", plansRoutes);
 
 // ✅ 6. Start server
 app.listen(port, () => {

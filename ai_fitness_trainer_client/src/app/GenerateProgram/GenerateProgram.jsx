@@ -53,7 +53,7 @@ function GenerateProgram() {
         days: parseInt(duration),
         notes: prompt,
         content: plan,  // assume plan is JSON object or JSON-stringifiable
-        is_active: true,
+        is_active: false,
       };
 
       saveGeneratedPlan(planToSave)
@@ -108,7 +108,7 @@ function GenerateProgram() {
 
     console.log("📦 Generating Program:", {
       goal: selectedGoalLabel,
-      duration: durationInt,
+      duration: durationInt*7,
       prompt
     });
 
@@ -118,7 +118,7 @@ function GenerateProgram() {
     generate({
       userInfo: data,
       goal: selectedGoalLabel,
-      duration: durationInt,
+      duration: durationInt*7,
       customPrompt: prompt,
     });
   };
