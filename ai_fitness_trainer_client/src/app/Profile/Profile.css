@@ -1,39 +1,303 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap');
 
-.userDashboard{
+.userDashboard {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    gap:20px;
+    gap: 20px;
     width: 100%;
-    max-height:auto;
-}
-.active{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    max-height: auto;
+     border: 1px solid rgba(0, 255, 200, 0.4);
 }
 
-.main-active{
-   color: var(--primary-color);
-    text-shadow: 0 0 8px var(--primary-color);
-    font-family: 'Poppins', sans-serif;
-    font-size: 2.5rem;
+.userDashboard:hover{
+     transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(0, 255, 200, 0.5), inset 0 0 20px rgba(0, 255, 200, 0.15);
 }
 
-
-.inactive{
+/* ================= ACTIVE PLANS ================= */
+.active {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.main-inactive{
-   color: var(--primary-color);
-    text-shadow: 0 0 8px var(--primary-color);
+.main-active {
+    color: var(--primary-color);
+    text-shadow: 0 0 8px var(--primary-color), 0 0 16px rgba(0, 255, 200, 0.4);
     font-family: 'Poppins', sans-serif;
     font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+/* ================= INACTIVE PLANS ================= */
+.inactive {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-inactive {
+    color: var(--primary-color);
+    text-shadow: 0 0 8px var(--primary-color), 0 0 16px rgba(0, 255, 200, 0.4);
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+/* ================= NO PLANS MESSAGE ================= */
+.no-plans-message {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(0, 255, 200, 0.4);
+    border-radius: 20px;
+    padding: 20px 30px;
+    margin: 20px 0;
+    max-width: 1200px;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: poppins, sans-serif;
+    font-size: 2rem;
+
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    color: #ddd;
+
+    /* Glow + subtle animation */
+    box-shadow: 0 0 10px rgba(0, 255, 200, 0.3), inset 0 0 15px rgba(0, 255, 200, 0.1);
+    text-shadow: 0 0 6px rgba(0, 255, 200, 0.6);
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 4px solid var(--primary-color);
+
+}
+
+.no-plans-message:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(0, 255, 200, 0.5), inset 0 0 20px rgba(0, 255, 200, 0.15);
+}
+
+/* ================= RESPONSIVE DESIGN ================= */
+
+/* Large Desktop (1200px and above) */
+@media screen and (min-width: 1200px) {
+    .userDashboard {
+        padding: 30px;
+        gap: 30px;
+    }
+    
+    .main-active,
+    .main-inactive {
+        font-size: 3rem;
+        margin-bottom: 15px;
+    }
+    
+    .no-plans-message {
+        font-size: 2.2rem;
+        padding: 25px 40px;
+        height: 220px;
+    }
+}
+
+/* Desktop (992px to 1199px) */
+@media screen and (max-width: 1199px) and (min-width: 992px) {
+    .userDashboard {
+        padding: 25px;
+        gap: 25px;
+    }
+    
+    .main-active,
+    .main-inactive {
+        font-size: 2.5rem;
+        margin-bottom: 12px;
+    }
+    
+    .no-plans-message {
+        font-size: 2rem;
+        padding: 20px 30px;
+        height: 200px;
+        max-width: 1000px;
+    }
+}
+
+/* Tablet (768px to 991px) */
+@media screen and (max-width: 991px) and (min-width: 768px) {
+    .userDashboard {
+        padding: 20px 15px;
+        gap: 20px;
+    }
+    
+    .main-active,
+    .main-inactive {
+        font-size: 2.2rem;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    
+    .no-plans-message {
+        font-size: 1.8rem;
+        padding: 18px 25px;
+        height: 180px;
+        max-width: 95%;
+        margin: 15px auto;
+    }
+}
+
+/* Small Tablet / Large Mobile (576px to 767px) */
+@media screen and (max-width: 767px) and (min-width: 576px) {
+    .userDashboard {
+        padding: 15px 10px;
+        gap: 15px;
+    }
+    
+    .main-active,
+    .main-inactive {
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+        text-align: center;
+    }
+    
+    .no-plans-message {
+        font-size: 1.5rem;
+        padding: 15px 20px;
+        height: 160px;
+        max-width: 100%;
+        margin: 10px 0;
+        border-radius: 10px;
+        
+        /* Adjust glow effects for smaller screens */
+        box-shadow: 0 0 8px rgba(0, 255, 200, 0.3), inset 0 0 12px rgba(0, 255, 200, 0.1);
+        text-shadow: 0 0 4px rgba(0, 255, 200, 0.6);
+    }
+    
+    .no-plans-message:hover {
+        transform: scale(1.02);
+        box-shadow: 0 0 15px rgba(0, 255, 200, 0.4), inset 0 0 15px rgba(0, 255, 200, 0.12);
+    }
+}
+
+/* Mobile (up to 575px) */
+@media screen and (max-width: 575px) {
+    .userDashboard {
+        padding: 10px 8px;
+        gap: 12px;
+    }
+    
+    .main-active,
+    .main-inactive {
+        font-size: 1.5rem;
+        margin-bottom: 6px;
+        text-align: center;
+        line-height: 1.2;
+    }
+    
+    .no-plans-message {
+        font-size: 1.2rem;
+        padding: 12px 15px;
+        height: 140px;
+        max-width: 100%;
+        margin: 8px 0;
+        border-radius: 8px;
+        
+        /* Reduced effects for mobile performance */
+        box-shadow: 0 0 6px rgba(0, 255, 200, 0.25), inset 0 0 10px rgba(0, 255, 200, 0.08);
+        text-shadow: 0 0 3px rgba(0, 255, 200, 0.5);
+        
+        /* Ensure text doesn't overflow */
+        word-wrap: break-word;
+        hyphens: auto;
+    }
+    
+    .no-plans-message:hover {
+        transform: scale(1.01);
+        box-shadow: 0 0 10px rgba(0, 255, 200, 0.3), inset 0 0 12px rgba(0, 255, 200, 0.1);
+    }
+}
+
+/* Extra Small Mobile (up to 320px) */
+@media screen and (max-width: 320px) {
+    .userDashboard {
+        padding: 8px 5px;
+        gap: 10px;
+    }
+    
+    .main-active,
+    .main-inactive {
+        font-size: 1.3rem;
+        margin-bottom: 5px;
+    }
+    
+    .no-plans-message {
+        font-size: 1rem;
+        padding: 10px 12px;
+        height: 120px;
+        border-radius: 6px;
+        
+        /* Minimal effects for very small screens */
+        box-shadow: 0 0 4px rgba(0, 255, 200, 0.2), inset 0 0 8px rgba(0, 255, 200, 0.05);
+        text-shadow: 0 0 2px rgba(0, 255, 200, 0.4);
+    }
+    
+    .no-plans-message:hover {
+        transform: none; /* Disable scaling on very small screens */
+        box-shadow: 0 0 6px rgba(0, 255, 200, 0.25), inset 0 0 10px rgba(0, 255, 200, 0.08);
+    }
+}
+
+/* ================= ACCESSIBILITY & PERFORMANCE ================= */
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    .no-plans-message {
+        transition: none;
+        animation: none;
+    }
+    
+    .no-plans-message:hover {
+        transform: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .no-plans-message {
+        border: 2px solid var(--primary-color);
+        background: rgba(0, 0, 0, 0.8);
+    }
+    
+    .main-active,
+    .main-inactive {
+        text-shadow: none;
+        font-weight: 600;
+    }
+}
+
+/* Print styles */
+@media print {
+    .userDashboard {
+        padding: 0;
+        gap: 10px;
+    }
+    
+    .no-plans-message {
+        box-shadow: none;
+        text-shadow: none;
+        border: 1px solid #000;
+        background: transparent;
+        color: #000;
+        page-break-inside: avoid;
+    }
+    
+    .main-active,
+    .main-inactive {
+        text-shadow: none;
+        color: #000;
+    }
 }

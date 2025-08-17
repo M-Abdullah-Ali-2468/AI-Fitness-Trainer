@@ -1,292 +1,417 @@
-/* Main Container */
+/* ================= MAIN CONTAINER ================= */
 .generateProgram {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  padding: 40px 24px;
-  margin: auto;
-  max-width: 1100px;
-  background-color: #0e0e0e;
-  border-radius: 16px;
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.07);
-  color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 40px 24px;
+    margin: auto;
+    max-width: 1100px;
+    background-color: #0e0e0e;
+    border-radius: 16px;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.07);
+    color: #fff;
 }
 
-/* Heading Section */
+/* ================= HEADING SECTION ================= */
 .headingIntro {
-  font-size: clamp(2rem, 5vw, 2.6rem);
-  text-align: center;
-  font-weight: 700;
-  color: #00ffff;
+    font-size: clamp(2rem, 5vw, 2.6rem);
+    text-align: center;
+    font-weight: 700;
+    color: #00ffff;
 }
 
 .headingText {
-  font-size: clamp(1rem, 3vw, 1.2rem);
-  text-align: center;
-  margin-top: 0.6rem;
-  color: #ccc;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    text-align: center;
+    margin-top: 0.6rem;
+    color: #ccc;
 }
 
-/* Goal Selection */
+/* ================= GOAL SELECTION ================= */
 .goalSelection {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .goalHeading h2 {
-  text-align: center;
-  font-size: 1.8rem;
-  color: #00ffff;
+    text-align: center;
+    font-size: 1.8rem;
+    color: #00ffff;
 }
 
 .goalButtons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
 }
 
 .goalButtons button {
-  background-color: #1a1a1a;
-  border: 2px solid transparent;
-  border-radius: 12px;
-  padding: 14px 22px;
-  min-width: 180px;
-  font-size: 1rem;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
+    background-color: #1a1a1a;
+    border: 2px solid #1a1a1a;   /* ✅ Transparent ki jagah same color rakha */
+    border-radius: 12px;
+    padding: 14px 22px;
+    min-width: 180px;
+    font-size: 1rem;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
 }
 
-.goalButtons button:hover {
-  background-color: #222;
-  border-color: #00ffff;
-  transform: scale(1.04);
-}
 
-.goalButtons button.active {
-  background-color: #00ffff;
-  color: #000;
-  font-weight: bold;
-  border-color: #00ffff;
-  box-shadow: 0 0 12px rgba(0, 255, 255, 0.4);
-}
 
-/* Prompt Area */
+/* ================= PROMPT AREA ================= */
 .promptArea {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
 .durationInput {
-  width: 100%;
-  max-width: 300px;
-  padding: 14px 16px;
-  font-size: 1rem;
-  border-radius: 10px;
-  border: 1px solid #444;
-  background-color: #1a1a1a;
-  color: white;
-  outline: none;
-  transition: border 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 300px;
+    padding: 14px 16px;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: 1px solid #444;
+    background-color: #1a1a1a;
+    color: white;
+    outline: none;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
 }
 
 .durationInput:focus {
-  border-color: #00ffff;
-  box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+    border-color: #00ffff;
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
 }
 
 .promptArea textarea {
-  width: 100%;
-  max-width: 800px;
-  height: 140px;
-  padding: 16px;
-  border-radius: 12px;
-  font-size: 1rem;
-  resize: none;
-  border: 1px solid #444;
-  background-color: #1a1a1a;
-  color: white;
-  transition: border 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 800px;
+    height: 140px;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 1rem;
+    resize: none;
+    border: 1px solid #444;
+    background-color: #1a1a1a;
+    color: white;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
 }
 
 .promptArea textarea:focus {
-  outline: none;
-  border-color: #00ffff;
-  box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+    outline: none;
+    border-color: #00ffff;
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
 }
 
 .promptArea button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background-color: #00ffff;
-  color: #000;
-  font-weight: 600;
-  padding: 14px 28px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 1.1rem;
-  transition: background 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #00ffff;
+    color: #000;
+    font-weight: 600;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .promptArea button:hover {
-  background-color: #00d4d4;
-  transform: translateY(-2px);
+    background-color: #00d4d4;
 }
 
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-  .goalButtons {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .goalButtons button {
-    width: 100%;
-    max-width: 320px;
-  }
-
-  .promptArea button {
-    width: 100%;
-    max-width: 320px;
-  }
-
-  .durationInput {
-    max-width: 320px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .headingIntro {
-    font-size: 1.8rem;
-  }
-
-  .headingText {
-    font-size: 1rem;
-  }
-
-  .goalHeading h2 {
-    font-size: 1.4rem;
-  }
-
-  .promptArea textarea {
-    font-size: 0.95rem;
-    padding: 12px;
-  }
-
-  .promptArea button {
-    font-size: 1rem;
-    padding: 12px 20px;
-  }
-
-  .durationInput {
-    font-size: 0.95rem;
-    padding: 12px;
-  }
-}
-
-
-/* ========================= */
-/* LOADING ANIMATION SECTION */
-/* ========================= */
+/* ================= LOADING ANIMATION ================= */
 .loadingAnimation {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #001f3f; /* deep blue overlay */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  z-index: 9999;
-  animation: fadeIn 0.4s ease-in-out forwards;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #001f3f;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    z-index: 9999;
+    animation: fadeIn 0.4s ease-in-out forwards;
 }
 
-/* Bot Image */
 .loadingAnimation .img {
-  width: 180px;
-  height: 180px;
-  animation: float 3s ease-in-out infinite;
+    width: 180px;
+    height: 180px;
+    animation: float 3s ease-in-out infinite;
 }
 
 .loadingAnimation .img img.Bot {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
-/* Bot Message */
 .loadingAnimation .message {
-  text-align: center;
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #00ffff;
-  padding: 0 20px;
-  max-width: 80%;
-  animation: fadeInUp 1s ease-in-out;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #00ffff;
+    padding: 0 20px;
+    max-width: 80%;
+    animation: fadeInUp 1s ease-in-out;
 }
 
-/* ================= */
-/* Animations */
-/* ================= */
+/* ================= ANIMATIONS ================= */
 @keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: scale(1.05);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+    0% {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 @keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
 }
 
 @keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* ================= */
-/* Responsive Tweaks */
-/* ================= */
-@media (max-width: 600px) {
-  .loadingAnimation .img {
-    width: 120px;
-    height: 120px;
-  }
+/* ================= RESPONSIVE DESIGN ================= */
 
-  .loadingAnimation .message {
-    font-size: 1.1rem;
-    max-width: 90%;
-  }
+/* Tablet (768px and below) */
+@media screen and (max-width: 768px) {
+    .generateProgram {
+        gap: 30px;
+        padding: 30px 20px;
+    }
+    
+    .goalButtons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .goalButtons button {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .promptArea button {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .durationInput {
+        max-width: 320px;
+    }
+    
+    .promptArea textarea {
+        max-width: 100%;
+    }
+}
+
+/* Large Mobile (600px and below) */
+@media screen and (max-width: 600px) {
+    .generateProgram {
+        gap: 25px;
+        padding: 25px 16px;
+    }
+    
+    .goalSelection {
+        gap: 16px;
+    }
+    
+    .promptArea {
+        gap: 16px;
+    }
+    
+    .loadingAnimation .img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .loadingAnimation .message {
+        font-size: 1.1rem;
+        max-width: 90%;
+    }
+}
+
+/* Small Mobile (480px and below) */
+@media screen and (max-width: 480px) {
+    .generateProgram {
+        gap: 20px;
+        padding: 20px 12px;
+        border-radius: 12px;
+    }
+    
+    .headingIntro {
+        font-size: 1.8rem;
+    }
+
+    .headingText {
+        font-size: 1rem;
+        margin-top: 0.4rem;
+    }
+
+    .goalHeading h2 {
+        font-size: 1.4rem;
+    }
+    
+    .goalButtons {
+        gap: 12px;
+    }
+    
+    .goalButtons button {
+        padding: 12px 18px;
+        min-width: 160px;
+        font-size: 0.95rem;
+    }
+    
+    .durationInput {
+        font-size: 0.95rem;
+        padding: 12px;
+        max-width: 280px;
+    }
+
+    .promptArea textarea {
+        font-size: 0.95rem;
+        padding: 12px;
+        height: 120px;
+        border-radius: 10px;
+    }
+
+    .promptArea button {
+        font-size: 1rem;
+        padding: 12px 20px;
+        max-width: 280px;
+    }
+    
+    .loadingAnimation {
+        gap: 20px;
+    }
+    
+    .loadingAnimation .img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .loadingAnimation .message {
+        font-size: 1rem;
+        padding: 0 16px;
+    }
+}
+
+/* Extra Small Mobile (360px and below) */
+@media screen and (max-width: 360px) {
+    .generateProgram {
+        gap: 16px;
+        padding: 16px 8px;
+    }
+    
+    .headingIntro {
+        font-size: 1.6rem;
+    }
+    
+    .goalHeading h2 {
+        font-size: 1.2rem;
+    }
+    
+    .goalButtons button {
+        padding: 10px 16px;
+        min-width: 140px;
+        font-size: 0.9rem;
+    }
+    
+    .durationInput {
+        font-size: 0.9rem;
+        padding: 10px;
+        max-width: 260px;
+    }
+
+    .promptArea textarea {
+        font-size: 0.9rem;
+        padding: 10px;
+        height: 100px;
+    }
+
+    .promptArea button {
+        font-size: 0.95rem;
+        padding: 10px 18px;
+        max-width: 260px;
+    }
+    
+    .loadingAnimation .message {
+        font-size: 0.95rem;
+        padding: 0 12px;
+    }
+}
+
+/* ================= ACCESSIBILITY ================= */
+@media (prefers-reduced-motion: reduce) {
+    .goalButtons button,
+    .promptArea button,
+    .loadingAnimation,
+    .loadingAnimation .img,
+    .loadingAnimation .message {
+        animation: none;
+        transition: none;
+    }
+    
+    .goalButtons button:hover,
+    .promptArea button:hover {
+        transform: none;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .generateProgram {
+        border: 2px solid #00ffff;
+    }
+    
+    .goalButtons button {
+        border: 2px solid #444;
+    }
+    
+    .goalButtons button.active {
+        border: 2px solid #00ffff;
+    }
+    
+    .durationInput,
+    .promptArea textarea {
+        border: 2px solid #444;
+    }
+    
+    .durationInput:focus,
+    .promptArea textarea:focus {
+        border: 2px solid #00ffff;
+    }
 }

@@ -1,4 +1,4 @@
-/* Navbar.css — Dark Pulse AI Theme */
+/* Navbar.css — Improved Dark Pulse AI Theme */
 
 .navbar {
   position: fixed;
@@ -45,7 +45,8 @@
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 40px; /* ✅ Fixed spacing between links */
+  flex-shrink: 0; /* ✅ Prevent shrinking */
 }
 
 /* NavLink Styling */
@@ -53,17 +54,22 @@
   color: var(--text-color);
   font-weight: 500;
   position: relative;
+  text-decoration: none; /* ✅ Remove default underline */
+  padding: 5px 0;
   transition: color 0.3s ease;
 }
 
-.nav-links a:hover{
+.nav-links a:hover {
   color: var(--primary-color);
 }
 
 .nav-links a::after {
   content: "";
   position: absolute;
-  bottom: -5px;
+
+
+
+  bottom: -4px;
   left: 0;
   height: 2px;
   width: 0%;
@@ -86,49 +92,71 @@
   box-shadow: 0 0 15px var(--primary-color);
 }
 
-
-.toggleMenu{
-    display: None;
-    z-index: 1001;
+/* Mobile Menu */
+.toggleMenu {
+  display: none;
+  z-index: 1001;
 }
-.toggleMenu:hover{
-    color: var(--primary-color);
-    cursor: pointer;
+.toggleMenu:hover {
+  color: var(--primary-color);
+  cursor: pointer;
 }
 
+@media screen and (max-width: 800px) {
+  .nav-links {
+    display: none;
+  }
 
-
-
-@media screen and (max-width:800px){
-    .nav-links{
-        display: None;
-    }
-
-    .toggleMenu{
-        display: flex;
-    }
-
-    .nav-links .active{
-        display: flex;
-        
-    }
-
-    .nav-links.active {
+  .toggleMenu {
     display: flex;
-    flex-direction:  column;
+  }
+
+  .nav-links.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: absolute;
-    background-color:black;
-    top: -0.5%;
-   width: 100%;
-   left: 0%;   
-   padding: 15px;
-   border-radius: 10px;
-   border: 1px solid var(--primary-color);
-}
+    background-color: black;
+    top: 0px;
+    width: 100%;
+    left: 0;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid var(--primary-color);
+    gap: 20px; /* ✅ Even spacing in mobile dropdown */
+  }
 
-.nav-links.active a{
+  .nav-links.active a {
     text-align: center;
+    width: 100%;
+  }
 }
 
+
+/* UserButton ka wrapper ko control karne ke liye */
+.cl-userButtonRoot {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+
+  height: 36px; /* navbar height ke andar fit karne ke liye */
+  width: auto;
+  padding: 0;
+  margin-left: 12px; /* thoda gap NavLinks se */
+  border-radius: 50%;
+  overflow: hidden; /* koi dropdown overflow na kare */
+  background: transparent; /* optional */
 }
 
+/* Avatar (profile image) ko size control karne ke liye */
+.cl-userButtonAvatarBox {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+/* Dropdown ka z-index aur position fix */
+.cl-userButtonPopover {
+  z-index: 2000; /* navbar se upar aane ke liye */
+}

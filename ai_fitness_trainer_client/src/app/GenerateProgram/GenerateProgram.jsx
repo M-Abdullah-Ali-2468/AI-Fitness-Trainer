@@ -50,7 +50,7 @@ function GenerateProgram() {
       const planToSave = {
         user_id: data.user_id,
         title: `${selectedGoalLabel} Plan`,
-        days: parseInt(duration),
+        days: parseInt(duration) * 7,   // ✅ FIXED: save days not weeks
         notes: prompt,
         content: plan,  // assume plan is JSON object or JSON-stringifiable
         is_active: false,
