@@ -67,6 +67,26 @@
   content: '';
   position: absolute;
   top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+  animation: scan 3s infinite;
+}
+
+@keyframes scan {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.ipc-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
@@ -85,7 +105,7 @@
   border-color: var(--primary-color);
 }
 
-.ipc-card:hover::before {
+.ipc-card:hover::after {
   opacity: 0.05;
 }
 
@@ -171,7 +191,7 @@
   pointer-events: none;
 }
 
-/* Action Buttons */
+/* Action Buttons - Consistent with ActivePlanCard.css */
 .ipc-actions {
   display: flex;
   gap: var(--spacing-md);
@@ -179,69 +199,84 @@
   justify-content: flex-end;
 }
 
-.ipc-actions button {
-  padding: var(--spacing-sm) var(--spacing-lg);
-  border: none;
-  border-radius: var(--border-radius-md);
-  font-family: 'Orbitron', monospace;
+/* Base Button Styling */
+.ipc-actions button,
+.ipc-dayTab,
+.ipc-closeBtn,
+.ipc-confirmBtn,
+.ipc-cancelBtn {
+  padding: var(--spacing-sm) var(--spacing-xl);
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius-lg);
+  font-family: 'Poppins', sans-serif;
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: 1rem;
   cursor: pointer;
+  transition: all var(--transition-normal);
   position: relative;
   overflow: hidden;
-  transition: all var(--transition-fast) ease;
+  backdrop-filter: var(--glass-backdrop);
+  background: transparent;
+  color: var(--primary-color);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  letter-spacing: 1px;
+  min-width: 140px;
 }
 
-.ipc-actions button::before {
+.ipc-actions button::before,
+.ipc-dayTab::before,
+.ipc-closeBtn::before,
+.ipc-confirmBtn::before,
+.ipc-cancelBtn::before {
   content: '';
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left var(--transition-slow) ease;
-}
-
-.ipc-actions button:hover::before {
-  left: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 247, 0.2), transparent);
+  transition: left var(--transition-normal);
 }
 
 .ipc-viewBtn {
-  background: var(--accent-gradient);
-  color: white;
-  box-shadow: 0 4px 15px rgba(0, 255, 247, 0.3);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .ipc-viewBtn:hover {
+  background: var(--glass-hover);
+  box-shadow: 0 0 25px rgba(0, 255, 247, 0.4);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 255, 247, 0.4);
 }
 
 .ipc-activateBtn {
-  background: var(--activate-gradient);
-  color: white;
-  box-shadow: 0 4px 15px rgba(255, 149, 0, 0.3);
+  border-color: #ff9500;
+  color: #ff9500;
 }
 
 .ipc-activateBtn:hover {
+  background: rgba(255, 149, 0, 0.1);
+  box-shadow: 0 0 25px rgba(255, 149, 0, 0.4);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 149, 0, 0.4);
 }
 
 .ipc-deleteBtn {
-  background: var(--danger-gradient);
-  color: white;
-  box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+  border-color: #ff4757;
+  color: #ff4757;
 }
 
 .ipc-deleteBtn:hover {
+  background: rgba(255, 71, 87, 0.1);
+  box-shadow: 0 0 25px rgba(255, 71, 87, 0.4);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 71, 87, 0.4);
+}
+
+.ipc-actions button:hover::before,
+.ipc-dayTab:hover::before,
+.ipc-closeBtn:hover::before,
+.ipc-confirmBtn:hover::before,
+.ipc-cancelBtn:hover::before {
+  left: 100%;
 }
 
 /* Modal Overlay */
@@ -251,7 +286,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   display: flex;
@@ -325,56 +360,49 @@
   margin-bottom: var(--spacing-lg);
 }
 
-/* Day Navigation */
+/* Day Navigation - Updated with consistent styling */
 .ipc-dayNav {
   display: flex;
   gap: var(--spacing-xs);
-  margin-bottom: var(--spacing-xl);
-  padding: var(--spacing-sm);
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: var(--border-radius-lg);
-  border: 1px solid rgba(0, 255, 247, 0.1);
-  flex-wrap: wrap;
   justify-content: center;
+  margin-bottom: var(--spacing-xl);
+  flex-wrap: wrap;
+  padding: var(--spacing-md);
+  background: var(--glass-bg);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--glass-border);
 }
 
 .ipc-dayTab {
-  padding: var(--spacing-sm) var(--spacing-lg);
-  border: none;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border: 1px solid rgba(0, 255, 247, 0.3);
   border-radius: var(--border-radius-md);
-  background: rgba(0, 255, 247, 0.1);
+  background: transparent;
   color: var(--text-secondary);
-  font-family: 'Orbitron', monospace;
-  font-weight: 600;
-  font-size: 0.875rem;
   cursor: pointer;
-  transition: all var(--transition-fast) ease;
-  position: relative;
-  overflow: hidden;
+  transition: all var(--transition-fast);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  backdrop-filter: var(--glass-backdrop);
+  min-width: auto;
+  font-size: 0.9rem;
+  text-transform: none;
+  letter-spacing: normal;
 }
 
-.ipc-dayTab::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: var(--primary-gradient);
-  opacity: 0;
-  transition: opacity var(--transition-fast) ease;
-  z-index: -1;
+.ipc-dayTab:hover {
+  background: var(--glass-hover);
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
 }
 
-.ipc-dayTab:hover,
 .ipc-dayTab.active {
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 255, 247, 0.3);
-}
-
-.ipc-dayTab.active::before {
-  opacity: 1;
+  background: var(--primary-color);
+  color: black;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 15px rgba(0, 255, 247, 0.5);
+  font-weight: 600;
 }
 
 /* Day Content */
@@ -493,69 +521,77 @@
   padding: var(--spacing-lg);
 }
 
-/* Close Button */
+/* Close Button - Updated with consistent styling */
 .ipc-closeBtn {
   width: 100%;
   padding: var(--spacing-md) var(--spacing-xl);
-  background: var(--accent-gradient);
-  border: none;
-  border-radius: var(--border-radius-md);
-  color: white;
-  font-family: 'Orbitron', monospace;
+  background: transparent;
+  border: 2px solid var(--accent-color);
+  border-radius: var(--border-radius-lg);
+  color: var(--accent-color);
+  font-family: 'Poppins', sans-serif;
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  transition: all var(--transition-fast) ease;
+  transition: all var(--transition-normal);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   margin-top: var(--spacing-xl);
-  box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: var(--glass-backdrop);
 }
 
 .ipc-closeBtn:hover {
+  background: rgba(138, 43, 226, 0.1);
+  box-shadow: 0 0 25px rgba(138, 43, 226, 0.4);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(138, 43, 226, 0.4);
 }
 
-/* Confirmation Modal Buttons */
+/* Confirmation Modal Buttons - Updated with consistent styling */
 .ipc-confirmBtn,
 .ipc-cancelBtn {
   padding: var(--spacing-md) var(--spacing-xl);
-  border: none;
-  border-radius: var(--border-radius-md);
-  font-family: 'Orbitron', monospace;
+  border: 2px solid;
+  border-radius: var(--border-radius-lg);
+  font-family: 'Poppins', sans-serif;
   font-weight: 600;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: all var(--transition-fast) ease;
+  transition: all var(--transition-normal);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   margin: var(--spacing-sm);
-  min-width: 120px;
+  min-width: 140px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: var(--glass-backdrop);
 }
 
 .ipc-confirmBtn {
-  background: var(--danger-gradient);
-  color: white;
-  box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+  background: transparent;
+  border-color: #ff4757;
+  color: #ff4757;
 }
 
 .ipc-confirmBtn:hover {
+  background: rgba(255, 71, 87, 0.1);
+  box-shadow: 0 0 25px rgba(255, 71, 87, 0.4);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 71, 87, 0.4);
 }
 
 .ipc-cancelBtn {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text-primary);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  background: transparent;
+  border-color: var(--text-muted);
+  color: var(--text-muted);
 }
 
 .ipc-cancelBtn:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 15px rgba(0, 255, 247, 0.3);
 }
 
 /* Responsive Design */

@@ -24,7 +24,6 @@ export default function Navbar() {
                     <NavLink to="/home">Home</NavLink>
                     <NavLink to="/generate-program">Generate Program</NavLink>
                     <NavLink to="/profile">Profile</NavLink>
-                    <NavLink to="/onboarding">onboard</NavLink>
                     <UserButton afterSignOutUrl="/home" />
                 </SignedIn>
 
