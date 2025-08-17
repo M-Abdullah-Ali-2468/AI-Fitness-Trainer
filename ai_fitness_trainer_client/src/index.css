@@ -61,3 +61,15 @@ button {
 ::-webkit-scrollbar-track {
   background: var(--card-color);
 }
+
+button {
+  display: inline-block;
+  width: auto;
+  max-width: max-content; /* sirf content ke hisaab se size le */
+}
+
+button:focus,
+button:active {
+  width: auto !important;
+}
+
