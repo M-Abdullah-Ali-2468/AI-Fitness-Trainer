@@ -1,4 +1,4 @@
-/* Navbar.css — Improved Dark Pulse AI Theme */
+/* ================= Navbar.css — Polished Dark Pulse AI Theme ================= */
 
 .navbar {
   position: fixed;
@@ -11,17 +11,19 @@
   max-width: 1300px;
 
   background-color: var(--card-color);
-  padding: 16px 32px;
-  border-radius: 12px;
+  padding: 14px 28px;
+  border-radius: 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
-  border: 1px solid var(--primary-color);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.12);
+  border: 1px solid rgba(0, 255, 255, 0.2);
   height: 70px;
+  backdrop-filter: blur(12px); /* ✅ Modern glassy effect */
 }
 
+/* ========== Logo ========== */
 .logo {
   display: flex;
   align-items: center;
@@ -29,34 +31,35 @@
 }
 
 .logoImg {
-  height: 40px;
+  height: 42px;
   width: auto;
-  filter: drop-shadow(0 0 4px var(--primary-color));
+  filter: drop-shadow(0 0 6px var(--primary-color));
 }
 
 .logoText {
   font-family: 'Orbitron', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   color: var(--primary-color);
   font-weight: bold;
+  letter-spacing: 1px;
   text-shadow: 0 0 8px var(--primary-color);
 }
 
+/* ========== Nav Links ========== */
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 40px; /* ✅ Fixed spacing between links */
-  flex-shrink: 0; /* ✅ Prevent shrinking */
+  gap: 32px;
+  flex-shrink: 0;
 }
 
-/* NavLink Styling */
 .nav-links a {
   color: var(--text-color);
   font-weight: 500;
   position: relative;
-  text-decoration: none; /* ✅ Remove default underline */
-  padding: 5px 0;
-  transition: color 0.3s ease;
+  text-decoration: none;
+  padding: 6px 0;
+  transition: all 0.3s ease;
 }
 
 .nav-links a:hover {
@@ -66,14 +69,12 @@
 .nav-links a::after {
   content: "";
   position: absolute;
-
-
-
   bottom: -4px;
   left: 0;
   height: 2px;
   width: 0%;
-  background-color: var(--primary-color);
+  background: var(--primary-color);
+  box-shadow: 0 0 8px var(--primary-color);
   transition: width 0.3s ease;
 }
 
@@ -81,34 +82,65 @@
   width: 100%;
 }
 
-/* UserButton glow effect */
+/* ========== User Button ========== */
 .cl-userButtonBox {
-  margin-left: 15px;
-  box-shadow: 0 0 8px var(--primary-color);
+  margin-left: 20px;
+  box-shadow: 0 0 10px var(--primary-color);
   border-radius: 50%;
-  transition: box-shadow 0.3s;
-}
-.cl-userButtonBox:hover {
-  box-shadow: 0 0 15px var(--primary-color);
+  transition: box-shadow 0.3s, transform 0.3s;
 }
 
-/* Mobile Menu */
+.cl-userButtonBox:hover {
+  box-shadow: 0 0 18px var(--primary-color);
+  transform: scale(1.05);
+}
+
+.cl-userButtonRoot {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  width: auto;
+  margin-left: 14px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: transparent;
+}
+
+.cl-userButtonAvatarBox {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.cl-userButtonPopover {
+  z-index: 2000;
+}
+
+/* ========== Mobile Menu ========== */
 .toggleMenu {
   display: none;
+  font-size: 1.8rem;
   z-index: 1001;
+  transition: color 0.3s ease;
 }
+
 .toggleMenu:hover {
   color: var(--primary-color);
   cursor: pointer;
 }
 
-@media screen and (max-width: 800px) {
+/* ✅ Mobile responsive styles */
+@media screen and (max-width: 900px) {
   .nav-links {
     display: none;
   }
 
   .toggleMenu {
     display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .nav-links.active {
@@ -116,47 +148,34 @@
     flex-direction: column;
     align-items: center;
     position: absolute;
-    background-color: black;
-    top: 0px;
+    top: 0px; /* ✅ below navbar */
+    left: 50%;
     width: 100%;
-    left: 0;
-    padding: 15px;
-    border-radius: 10px;
+    background: rgba(15, 15, 15, 0.95);
     border: 1px solid var(--primary-color);
-    gap: 20px; /* ✅ Even spacing in mobile dropdown */
+    border-radius: 12px;
+    padding: 20px;
+    gap: 20px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    animation: slideDown 0.3s ease forwards;
   }
 
   .nav-links.active a {
     text-align: center;
     width: 100%;
+    font-size: 1.1rem;
+    padding: 8px 0;
   }
 }
 
-
-/* UserButton ka wrapper ko control karne ke liye */
-.cl-userButtonRoot {
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-
-  height: 36px; /* navbar height ke andar fit karne ke liye */
-  width: auto;
-  padding: 0;
-  margin-left: 12px; /* thoda gap NavLinks se */
-  border-radius: 50%;
-  overflow: hidden; /* koi dropdown overflow na kare */
-  background: transparent; /* optional */
-}
-
-/* Avatar (profile image) ko size control karne ke liye */
-.cl-userButtonAvatarBox {
-  width: 32px !important;
-  height: 32px !important;
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-/* Dropdown ka z-index aur position fix */
-.cl-userButtonPopover {
-  z-index: 2000; /* navbar se upar aane ke liye */
+/* ✅ Slide down animation for mobile dropdown */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 }

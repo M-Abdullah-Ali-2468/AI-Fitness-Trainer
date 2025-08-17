@@ -22,7 +22,7 @@ const Home = () => {
   const testimonials = [
     {
       quote:
-        "Sigma's AI completely transformed my fitness journey. The personalized plans adapt perfectly to my progress.",
+        "AlphaFit Ai's AI completely transformed my fitness journey. The personalized plans adapt perfectly to my progress.",
       name: "Alex Chen",
       avatar: "AC",
     },
@@ -262,7 +262,7 @@ const Home = () => {
       <section className="how-it-works-section">
         <div className="section-container">
           <div className="section-header">
-            <h2 className="section-title">How Sigma Works</h2>
+            <h2 className="section-title">How AlphaFit Ai Works</h2>
             <p className="section-subtitle">
               Your journey to peak fitness in four simple steps
             </p>
